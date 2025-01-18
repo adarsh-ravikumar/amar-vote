@@ -1,0 +1,23 @@
+@use 'vars' as *;
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+	line-height: 2;
+	color: $latte-text;
+}
+
+body {
+	background: $latte-base;
+}
+
+.content, label {
+	font-size: 1.2rem;
+}
+
+.content_display {
+	font-size: clamp(300px, 20vw, 500px);
+	line-height: 0.8;
+}
