@@ -2,9 +2,9 @@
 	import { onMount } from 'svelte';
 	import { ConnectVVM, PresentableHouse, WatchForVoterInfo } from '../logic';
 	import { PB } from '$lib/state';
-	import { Voter } from '../state';
+	import { CandidatesList } from '../state';
 
-	onMount(() => {
+	onMount(async () => {
 		ConnectVVM($PB);
 		WatchForVoterInfo($PB);
 	});
@@ -12,5 +12,10 @@
 
 <div class="page">
 	<nav><img src="/logo_light.svg" alt="amar_vote_logo" /></nav>
-    
+	{#if $CandidatesList}
+		{#each $CandidatesList as can}
+			{can.post}
+			{can.name}
+		{/each}
+	{/if}
 </div>

@@ -1,7 +1,8 @@
 import PocketBase from 'pocketbase';
-import { Voter, VVM } from './state';
+import { CandidatesList, Voter, VVM } from './state';
 import type { RecordModel } from 'pocketbase';
 import { get } from 'svelte/store';
+import { FetchCandidates } from './vote/logic';
 
 interface SessionInfo {
 	lastSessionNum: number;
@@ -81,6 +82,8 @@ export async function WatchForVoterInfo(pb: PocketBase): Promise<void> {
 				section: voter.section,
 				house: voter.house
 			});
+
+			await FetchCandidates(pb, voter.house);
 		} catch {
 			return;
 		}
