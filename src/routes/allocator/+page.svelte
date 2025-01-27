@@ -9,6 +9,11 @@
 	let sec: string = $state('');
 	let house: string = $state('');
 
+	const HOUSE_RIG = 'Rig';
+	const HOUSE_SAMA = 'Sama';
+	const HOUSE_YAJUR = 'Yajur';
+	const HOUSE_ATHARVANA = 'Atharvana';
+
 	async function RegisterVoter() {
 		if (!name || !_class || !sec || !house) return;
 		const data: VoterData = {
@@ -94,20 +99,20 @@
 
 		<div class="row">
 			<button
-				class={`house house__r ${house == 'r' ? 'house--sel' : ''}`}
-				onclick={() => (house = 'r')}>R</button
+				class={`house house__r ${house == HOUSE_RIG ? 'house--sel' : ''}`}
+				onclick={() => (house = HOUSE_RIG)}>R</button
 			>
 			<button
-				class={`house house__y ${house == 'y' ? 'house--sel' : ''}`}
-				onclick={() => (house = 'y')}>Y</button
+				class={`house house__y ${house == HOUSE_YAJUR ? 'house--sel' : ''}`}
+				onclick={() => (house = HOUSE_YAJUR)}>Y</button
 			>
 			<button
-				class={`house house__s ${house == 's' ? 'house--sel' : ''}`}
-				onclick={() => (house = 's')}>S</button
+				class={`house house__s ${house == HOUSE_SAMA ? 'house--sel' : ''}`}
+				onclick={() => (house = HOUSE_SAMA)}>S</button
 			>
 			<button
-				class={`house house__a ${house == 'a' ? 'house--sel' : ''}`}
-				onclick={() => (house = 'a')}>A</button
+				class={`house house__a ${house == HOUSE_ATHARVANA ? 'house--sel' : ''}`}
+				onclick={() => (house = HOUSE_ATHARVANA)}>A</button
 			>
 		</div>
 
