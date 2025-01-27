@@ -1,13 +1,6 @@
 import PocketBase, { type RecordModel } from 'pocketbase';
 import { CandidatesList } from '../state';
 
-const InternalToExternalRepresentationHouse: { [key: string]: string } = {
-	a: 'Atharvana',
-	r: 'Rig',
-	y: 'Yajur',
-	s: 'Sama'
-};
-
 export interface Candidate {
 	name: string;
 	image: string;
@@ -23,7 +16,7 @@ export async function FetchCandidates(pb: PocketBase, house: string): Promise<vo
 		.getFullList(200, {
 			expand: 'post',
 			filter: pb.filter(
-				`post.house="Any"||post.house="${InternalToExternalRepresentationHouse[house]}"`
+				`post.house="Any"||post.house="${house}"`
 			)
 		});
 
