@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { ConnectVVM, PresentableHouse, WatchForVoterInfo } from './logic';
+	import { ConnectVVM, WatchForVoterInfo } from './logic';
 	import { PB } from '$lib/state';
 	import { Voter, VVM } from './state';
 	import { goto } from '$app/navigation';
@@ -8,15 +8,12 @@
 	onMount(() => {
 		ConnectVVM($PB);
 		WatchForVoterInfo($PB);
+
+		Voter.subscribe(() => {
+			console.log($Voter)
+		})
 	});
 </script>
-
-<svelte:head>
-	<link
-		rel="stylesheet"
-		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=how_to_vote,lock"
-	/>
-</svelte:head>
 
 {#if $VVM}
 	<div class="wrapper">
@@ -27,7 +24,7 @@
 
 		{#if !$VVM.session_active}
 			<div class="locked">
-				<span class="material-symbols-outlined"> lock </span>
+				<span class="material-icons"> lock </span>
 				<p class="content">Locked</p>
 			</div>
 		{:else if $Voter}
@@ -35,13 +32,13 @@
 				<p class="title">Voter Information</p>
 				<p class="content"><strong>Name:</strong>{$Voter.name}</p>
 				<p class="content"><strong>Class:</strong>{$Voter.class} {$Voter.section}</p>
-				<p class="content"><strong>House:</strong>{PresentableHouse($Voter.house)}</p>
+				<p class="content"><strong>House:</strong>{$Voter.house}</p>
 			</div>
 			<button
 				class="vote"
 				onclick={() => {
 					goto('/vvm/vote');
-				}}><span class="material-symbols-outlined"> how_to_vote </span>Proceed To Vote</button
+				}}><span class="material-icons"> how_to_vote </span>Proceed To Vote</button
 			>
 		{/if}
 	</div>

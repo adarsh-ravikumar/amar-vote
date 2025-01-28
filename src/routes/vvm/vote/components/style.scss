@@ -1,0 +1,174 @@
+@use '../../../../styles/vars' as *;
+.modal__wrapper {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.2);
+	display: grid;
+	place-items: center;
+	z-index: 100;
+
+	.modal {
+		background: $latte-base;
+		width: 40vw;
+		padding: 2rem;
+		border-radius: 0.3rem;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+
+		.modal__title {
+			font-size: 1.5rem;
+			font-weight: 600;
+			margin-bottom: 1rem;
+			text-align: center;
+		}
+
+		.modal__content {
+			font-size: 1.2rem;
+			margin-bottom: 1rem;
+			width: 80%;
+			margin-inline: auto;
+		}
+
+		.modal__buttons {
+			display: flex;
+			align-items: space-between;
+		}
+
+		.modal__button {
+			margin-inline: auto;
+			padding-inline: 1rem;
+
+			&.modal__button--error {
+				background: $latte-red;
+			}
+		}
+
+		.can__card {
+			width: 80%;
+			margin-inline: auto;
+			margin-bottom: 1rem;
+		}
+	}
+}
+
+.can__card {
+	&.card--disabled {
+		opacity: 0.5;
+		transition: opacity 0.4s ease;
+
+		&:hover {
+			opacity: 0.8;
+		}
+	}
+
+	transition: opacity 0.2s ease;
+
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: 1fr 1fr;
+	// align-items: center;
+	background: #209fb516;
+	padding: 1rem;
+	border-radius: 0.3rem;
+
+	.card__img {
+		display: flex;
+		flex-direction: column;
+
+		.img__candidate,
+		.img__icon {
+			width: 5rem;
+		}
+	}
+
+	.card__info {
+		.info__name {
+			font-size: 1.5rem;
+			font-weight: 500;
+		}
+	}
+
+	.vote {
+		padding: 0.5rem;
+		grid-column: 1 / span 2;
+	}
+}
+
+.wrapper {
+	display: grid;
+	place-items: center;
+	width: fit-content;
+	margin-inline: auto;
+
+	.nav {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		margin-block: 1rem;
+		text-align: center;
+	}
+
+	button {
+		outline: none;
+		border: none;
+		background: $latte-teal;
+		padding: 0.2rem 0.5rem;
+		font-size: 1.2rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		border-radius: 0.2rem;
+		transition: scale 0.1s ease;
+		height: fit-content;
+
+		&:hover {
+			scale: 105%;
+		}
+
+		&:active {
+			scale: 100%;
+		}
+		cursor: pointer;
+
+		&,
+		span {
+			color: white;
+		}
+	}
+
+	.nav__btn {
+		font-size: 1rem;
+		span {
+			font-size: 1rem;
+		}
+	}
+
+	.post__title {
+		font-size: 2rem;
+		font-weight: 600;
+		line-height: 1.2;
+	}
+
+	.post__count {
+		font-size: 1.2rem;
+		font-weight: 500;
+	}
+
+	.post__info {
+		font-size: 1rem;
+		margin-top: 1rem;
+		font-weight: 600;
+	}
+
+	.can {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 5rem;
+		margin-top: 2rem;
+		overflow-y: scroll;
+	}
+}

@@ -1,0 +1,61 @@
+@use '../../../styles/vars' as *;
+.page {
+	padding: 1rem;
+
+	nav {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		.info {
+			display: flex;
+			gap: 1rem;
+			align-items: center;
+
+			.info__name_class {
+				display: flex;
+				gap: 0.5rem;
+				align-items: center;
+				p {
+					font-weight: 600;
+				}
+				span {
+					font-size: 0.9rem;
+				}
+			}
+
+			.info__house {
+				color: white;
+				width: fit-content;
+				height: fit-content;
+				padding: 0.2rem 1rem;
+				font-size: 1rem;
+				border-radius: 0.3rem;
+
+				display: grid;
+				place-items: center;
+
+				&.house__r {
+					background: $latte-maroon;
+				}
+
+				&.house__y {
+					background: $latte-yellow;
+				}
+
+				&.house__s {
+					background: $latte-sky;
+				}
+
+				&.house__a {
+					background: $latte-green;
+				}
+			}
+		}
+
+		img {
+			width: 10%;
+			margin-top: 10px;
+		}
+	}
+}

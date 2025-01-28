@@ -1,5 +1,5 @@
 import PocketBase, { type RecordModel } from 'pocketbase';
-import { CandidatesList } from '../state';
+import { PostsList } from '../state';
 
 export interface Candidate {
 	name: string;
@@ -8,32 +8,36 @@ export interface Candidate {
 	post: string;
 	class: string;
 	section: string;
+	id: string;
 }
 
 export async function FetchCandidates(pb: PocketBase, house: string): Promise<void> {
-	const data: RecordModel[] = await pb
-		.collection('candidates')
-		.getFullList(200, {
-			expand: 'post',
-			filter: pb.filter(
-				`post.house="Any"||post.house="${house}"`
-			)
-		});
+	const data: RecordModel[] = await pb.collection('posts').getFullList(200, {
+		expand: 'candidates',
+		filter: pb.filter(`house="Any"||house="${house}"`)
+	});
 
-	let candidates: Candidate[] = [];
+	let posts: { [key: string]: Candidate[] } = {};
 
 	for (let i = 0; i < data.length; i++) {
-		const candidate = data[i];
+		const post: RecordModel = data[i];
 
-		candidates.push({
-			name: candidate.name,
-			image: candidate.image,
-			icon: candidate.icon,
-			post: candidate.expand?.post?.title,
-			class: candidate.class,
-			section: candidate.section
-		});
+		posts[post.title] = [];
+
+		for (let j = 0; j < post.expand?.candidates.length; j++) {
+			const candidate: RecordModel = post.expand?.candidates[j];
+
+			posts[post.title].push({
+				name: candidate.name,
+				image: candidate.image,
+				icon: candidate.icon,
+				post: post.title,
+				class: candidate.class,
+				section: candidate.section,
+				id: candidate.id
+			});
+		}
 	}
 
-	CandidatesList.set(candidates);
+	PostsList.set(posts);
 }

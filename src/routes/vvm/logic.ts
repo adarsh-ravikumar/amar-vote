@@ -1,5 +1,5 @@
 import PocketBase from 'pocketbase';
-import { CandidatesList, Voter, VVM } from './state';
+import { PostsList, Voter, VVM } from './state';
 import type { RecordModel } from 'pocketbase';
 import { get } from 'svelte/store';
 import { FetchCandidates } from './vote/logic';
@@ -50,18 +50,31 @@ export async function ConnectVVM(pb: PocketBase): Promise<void> {
 	let num = await ValidateMachineNumber(pb, lastSessionNum);
 	let vvm = undefined;
 
-	vvm = lastSessionID
-		? // fetch machine from last session if exists
-			await pb.collection('vvm').getOne(lastSessionID!)
-		: // else create new machine
-			(vvm = await pb.collection('vvm').create({
-				id: lastSessionID,
-				machine_num: num,
-				voter: null,
-				session_active: false
-			}));
+	try {
+		if (lastSessionID) {
+			vvm = await pb.collection('vvm').getOne(lastSessionID!);
+		}
 
-	StoreSessionInfo(vvm);
+
+		// vvm = lastSessionID
+		// 	? // fetch machine from last session if exists
+		// 		await pb.collection('vvm').getOne(lastSessionID!)
+		// 	: // else create new machine
+		// 		(vvm = await pb.collection('vvm').create({
+		// 			id: lastSessionID,
+		// 			machine_num: num,
+		// 			voter: null,
+		// 			session_active: false
+		// 		}));
+	} catch {
+		vvm = await pb.collection('vvm').create({
+			machine_num: num,
+			voter: null,
+			session_active: false
+		});
+	}
+
+	StoreSessionInfo(vvm!);
 }
 
 export async function WatchForVoterInfo(pb: PocketBase): Promise<void> {
@@ -114,19 +127,4 @@ export async function WatchForVoterInfo(pb: PocketBase): Promise<void> {
 			Voter.set(null);
 		}
 	});
-}
-
-export function PresentableHouse(house: string): string {
-	switch (house) {
-		case 'r':
-			return 'Rig';
-		case 'y':
-			return 'Yajur';
-		case 's':
-			return 'Sama';
-		case 'a':
-			return 'Atharvana';
-		default:
-			return '';
-	}
 }
