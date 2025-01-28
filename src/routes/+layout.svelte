@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../styles/global.scss';
-	import { ConnectPocketBase } from '$lib/api';
-	ConnectPocketBase('http://127.0.0.1:8090');
+	import { ConnectPocketBase, PB_URL } from '$lib/api';
+	ConnectPocketBase(PB_URL);
 </script>
 
 <slot></slot>
@@ -10,7 +10,7 @@
 
 <style lang="scss">
 	@use '../styles/vars' as *;
-
+	
 	.credits {
 		position: fixed;
 		bottom: 0;
