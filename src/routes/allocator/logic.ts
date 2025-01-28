@@ -24,9 +24,7 @@ export async function WaitForVVM(pb: PocketBase): Promise<void> {
 
 	Machine.set({ id: undefined, machine_num: '0' });
 	await pb.collection('vvm').subscribe('*', (e) => {
-		console.log("Subscribed")
 		if (e.action == 'update' && e.record.session_active == false) {
-			console.log("Yo there was an update")
 			freeMachine = e.record;
 			Machine.set({ id: freeMachine!.id, machine_num: freeMachine!.machine_num });
 		}

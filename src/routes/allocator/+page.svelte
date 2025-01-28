@@ -43,13 +43,6 @@
 	}
 </script>
 
-<svelte:head>
-	<link
-		rel="stylesheet"
-		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=how_to_vote"
-	/>
-</svelte:head>
-
 <div class="wrapper">
 	{#if $Machine}
 		<div class="modal">
@@ -117,7 +110,7 @@
 		</div>
 
 		<button class="reg" onclick={RegisterVoter}
-			><span class="material-symbols-outlined"> how_to_vote </span> Register Voter</button
+			><span class="material-icons"> how_to_vote </span> Register Voter</button
 		>
 	</div>
 </div>
