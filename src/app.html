@@ -12,6 +12,12 @@
 			rel="stylesheet"
 		/>
 		%sveltekit.head%
+		<style>
+			html {
+				overflow-x: hidden;
+				scroll-behavior: smooth;
+			}
+		</style>
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">%sveltekit.body%</div>
