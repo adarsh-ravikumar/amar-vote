@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type PocketBase from 'pocketbase';
-	import { CreateVoter, GetVVM, SendVoterData, type VoterData } from './logic';
+	import { CreateVoter, CheckIfVoted, GetVVM, SendVoterData, type VoterData } from './logic';
 	import { Machine } from './state';
 	import { PB } from '$lib/state';
 
@@ -9,8 +9,22 @@
 	let sec: string = $state('');
 	let house: string = $state('');
 
+	let dataNotFilled: boolean = $state(false);
+	let alreadyVoted: boolean = $state(false);
+	let showModal: boolean = $state(false);
+
+	const HOUSE_RIG = 'Rig';
+	const HOUSE_SAMA = 'Sama';
+	const HOUSE_YAJUR = 'Yajur';
+	const HOUSE_ATHARVANA = 'Atharvana';
+
 	async function RegisterVoter() {
-		if (!name || !_class || !sec || !house) return;
+		if (!name || !_class || !sec || !house) {
+			dataNotFilled = true;
+			showModal = true;
+			return;
+		}
+
 		const data: VoterData = {
 			id: undefined,
 			class: _class,
@@ -19,9 +33,17 @@
 			house
 		};
 
+		// check if voter already voted. if yes, then display an error
+		const hasVoted = await CheckIfVoted($PB, data);
+		if (hasVoted) {
+			alreadyVoted = true;
+			showModal = true;
+			return;
+		}
+
 		// create voter
 		const voter = await CreateVoter($PB, data);
-
+		showModal = true;
 		// check for free machines
 		// if no machine free, keep polling and keep waiting
 		GetVVM($PB);
@@ -30,6 +52,7 @@
 		Machine.subscribe(async (vvm) => {
 			if (!vvm) return;
 			await SendVoterData($PB, voter);
+			showModal = true;
 		});
 
 		// clear
@@ -38,32 +61,53 @@
 	}
 </script>
 
-<svelte:head>
-	<link
-		rel="stylesheet"
-		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=how_to_vote"
-	/>
-</svelte:head>
-
 <div class="wrapper">
-	{#if $Machine}
+	{#if showModal}
 		<div class="modal">
 			<div class="modal_content">
-				{#if !$Machine!.id}
-					<p class="content wait_text">Waiting for a machine</p>
-					<p class="content">This won't take long...</p>
-					<div class="loader"></div>
-				{:else}
-					<p class="content">Your machine is</p>
-					<p class="content_display">
-						{`${$Machine.machine_num}`.length == 1 ? '0' : ''}{$Machine.machine_num}
+				{#if dataNotFilled}
+					<p class="content wait_text">Incomplete Data</p>
+					<p class="content">
+						Please ensure that all the fields are filled before registering to vote.
 					</p>
 					<button
 						class="reg"
 						onclick={() => {
-							$Machine = undefined;
-						}}>Proceed To Vote</button
+							dataNotFilled = false;
+							showModal = false;
+						}}>Ok</button
 					>
+				{:else if alreadyVoted}
+					<p class="content wait_text">You have already Voted!</p>
+					<p class="content">
+						If you think this is a mistake, kindly approach a member of the Student Elections
+						Department
+					</p>
+					<button
+						class="reg"
+						onclick={() => {
+							alreadyVoted = false;
+							showModal = false;
+						}}>Ok</button
+					>
+				{:else if $Machine}
+					{#if !$Machine!.id}
+						<p class="content wait_text">Waiting for a machine</p>
+						<p class="content">This won't take long...</p>
+						<div class="loader"></div>
+					{:else}
+						<p class="content">Your machine is</p>
+						<p class="content_display">
+							{`${$Machine!.machine_num}`.length == 1 ? '0' : ''}{$Machine!.machine_num}
+						</p>
+						<button
+							class="reg"
+							onclick={() => {
+								$Machine = undefined;
+								showModal = false;
+							}}>Proceed To Vote</button
+						>
+					{/if}
 				{/if}
 			</div>
 		</div>
@@ -94,25 +138,25 @@
 
 		<div class="row">
 			<button
-				class={`house house__r ${house == 'r' ? 'house--sel' : ''}`}
-				onclick={() => (house = 'r')}>R</button
+				class={`house house__r ${house == HOUSE_RIG ? 'house--sel' : ''}`}
+				onclick={() => (house = HOUSE_RIG)}>R</button
 			>
 			<button
-				class={`house house__y ${house == 'y' ? 'house--sel' : ''}`}
-				onclick={() => (house = 'y')}>Y</button
+				class={`house house__y ${house == HOUSE_YAJUR ? 'house--sel' : ''}`}
+				onclick={() => (house = HOUSE_YAJUR)}>Y</button
 			>
 			<button
-				class={`house house__s ${house == 's' ? 'house--sel' : ''}`}
-				onclick={() => (house = 's')}>S</button
+				class={`house house__s ${house == HOUSE_SAMA ? 'house--sel' : ''}`}
+				onclick={() => (house = HOUSE_SAMA)}>S</button
 			>
 			<button
-				class={`house house__a ${house == 'a' ? 'house--sel' : ''}`}
-				onclick={() => (house = 'a')}>A</button
+				class={`house house__a ${house == HOUSE_ATHARVANA ? 'house--sel' : ''}`}
+				onclick={() => (house = HOUSE_ATHARVANA)}>A</button
 			>
 		</div>
 
 		<button class="reg" onclick={RegisterVoter}
-			><span class="material-symbols-outlined"> how_to_vote </span> Register Voter</button
+			><span class="material-icons"> how_to_vote </span> Register Voter</button
 		>
 	</div>
 </div>

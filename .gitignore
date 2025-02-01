@@ -29,3 +29,5 @@ vite.config.ts.timestamp-*
 bun.*
 eslint.config.js
 pb_migrations
+*.db-*
+*.db-*
