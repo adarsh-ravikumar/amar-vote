@@ -1,5 +1,5 @@
 import type { RecordModel } from 'pocketbase';
-import type PocketBase from 'pocketbase';
+import PocketBase from 'pocketbase';
 import { Machine } from './state';
 import { get } from 'svelte/store';
 
@@ -9,6 +9,20 @@ export interface VoterData {
 	class: string;
 	section: string;
 	house: string;
+}
+
+export async function CheckIfVoted(pb: PocketBase, data: VoterData): Promise<boolean> {
+	try {
+		const existingVoter = await pb
+			.collection('votes')
+			.getFirstListItem(
+				`name = "${data.name}" && class = "${data.class}" && section= "${data.section}"`
+			);
+	
+		return existingVoter !== undefined;
+	} catch {
+		return false;
+	}
 }
 
 export async function CreateVoter(pb: PocketBase, data: VoterData): Promise<VoterData> {
@@ -61,4 +75,3 @@ export async function SendVoterData(pb: PocketBase, data: VoterData): Promise<vo
 		machine_num: machine.machine_num
 	});
 }
-
