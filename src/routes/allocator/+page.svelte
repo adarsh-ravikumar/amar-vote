@@ -114,6 +114,9 @@
 	{/if}
 	<div class="form">
 		<img src="/amar_school_branded.png" alt="amar_logo" />
+		<!-- <div class="logo">
+			<p class="credits">Made with ❤️ by <span>Adarsh Ravikumar</span> - Batch of 2025</p>
+		</div> -->
 		<div class="container">
 			<label for="name">Name</label>
 			<input type="text" name="name" bind:value={name} />
