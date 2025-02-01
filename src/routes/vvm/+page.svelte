@@ -9,9 +9,6 @@
 		ConnectVVM($PB);
 		WatchForVoterInfo($PB);
 
-		Voter.subscribe(() => {
-			console.log($Voter)
-		})
 	});
 </script>
 
@@ -65,16 +62,17 @@
 	.details {
 		border-radius: 0.3rem;
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-		padding: 1rem 3rem;
+		padding: 1rem 2rem;
 
 		.title {
-			font-size: 1.6rem;
+			font-size: 1.4rem;
 			font-weight: 700;
 			text-decoration: underline;
+			text-align: center;
 		}
 
 		.content {
-			font-size: 1.5rem;
+			font-size: 1.2rem;
 		}
 		strong {
 			padding-right: 0.5rem;
@@ -98,7 +96,7 @@
 		border: none;
 		background: $latte-teal;
 		padding: 0.5rem 2rem;
-		font-size: 1.5rem;
+		font-size: 1.2rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;

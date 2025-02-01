@@ -5,12 +5,16 @@
 </script>
 
 <slot></slot>
+<div class="spacing"></div>
 
 <p class="credits">Made with ❤️ by <span>Adarsh Ravikumar</span> - Batch of 2025</p>
 
 <style lang="scss">
 	@use '../styles/vars' as *;
-	
+	.spacing {
+		margin-top: 2rem;
+	}
+
 	.credits {
 		position: fixed;
 		bottom: 0;

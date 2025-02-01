@@ -1,5 +1,5 @@
 import PocketBase from 'pocketbase';
-import { PostsList, Voter, VVM } from './state';
+import { CurrentPostIndex, PostsList, ShowModal, Voter, Votes, VVM } from './state';
 import type { RecordModel } from 'pocketbase';
 import { get } from 'svelte/store';
 import { FetchCandidates } from './vote/logic';
@@ -54,18 +54,6 @@ export async function ConnectVVM(pb: PocketBase): Promise<void> {
 		if (lastSessionID) {
 			vvm = await pb.collection('vvm').getOne(lastSessionID!);
 		}
-
-
-		// vvm = lastSessionID
-		// 	? // fetch machine from last session if exists
-		// 		await pb.collection('vvm').getOne(lastSessionID!)
-		// 	: // else create new machine
-		// 		(vvm = await pb.collection('vvm').create({
-		// 			id: lastSessionID,
-		// 			machine_num: num,
-		// 			voter: null,
-		// 			session_active: false
-		// 		}));
 	} catch {
 		vvm = await pb.collection('vvm').create({
 			machine_num: num,
@@ -127,4 +115,18 @@ export async function WatchForVoterInfo(pb: PocketBase): Promise<void> {
 			Voter.set(null);
 		}
 	});
+}
+
+export async function LockVVM(pb: PocketBase): Promise<void> {
+	await pb.collection('vvm').update(get(VVM)?.id!, {
+		voter: [],
+		session_active: false
+	});
+
+	// reset all states
+	Voter.set(null);
+	PostsList.set({});
+	Votes.set({});
+	CurrentPostIndex.set(0);
+	ShowModal.set(false);
 }

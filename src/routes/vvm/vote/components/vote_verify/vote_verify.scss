@@ -1,0 +1,134 @@
+@use '../../../../../styles/vars' as *;
+
+.verify__wrapper {
+	display: grid;
+	place-items: center;
+	width: fit-content;
+	margin-inline: auto;
+
+	.nav {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		margin-block: 1rem;
+		text-align: center;
+	}
+
+	button {
+		outline: none;
+		border: none;
+		background: $latte-teal;
+		padding: 0.2rem 0.5rem;
+		font-size: 1.2rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		border-radius: 0.2rem;
+		transition: scale 0.1s ease;
+		height: fit-content;
+
+		&:hover {
+			scale: 105%;
+		}
+
+		&:active {
+			scale: 100%;
+		}
+		cursor: pointer;
+
+		&,
+		span {
+			color: white;
+		}
+	}
+
+	.nav__btn {
+		font-size: 1rem;
+		span {
+			font-size: 1rem;
+		}
+	}
+
+	.page__title {
+		font-size: 2rem;
+		font-weight: 600;
+		line-height: 1.2;
+	}
+
+	.page__count {
+		font-size: 1.2rem;
+		font-weight: 500;
+	}
+
+	.can {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 5rem;
+		margin-top: 2rem;
+
+		.post_card {
+			text-align: center;
+			.post_card__title {
+				font-size: 1.2rem;
+				font-weight: 600;
+				width: 100%;
+				border-radius: 0.3rem;
+				background: $latte-teal;
+				color: white;
+				padding-block: 0.3rem;
+				margin-bottom: 0.5rem;
+			}
+		}
+	}
+
+	hr {
+		width: 80%;
+		margin-block: 2rem;
+		opacity: 0.15;
+	}
+
+	.submit {
+		width: fit-content;
+		display: grid;
+		place-items: center;
+
+		.submit__warning {
+			display: flex;
+			// width: 70%;
+			align-items: center;
+			margin-bottom: 0.5rem;
+			background: #d20f394f;
+			border-radius: 0.3rem;
+			overflow: hidden;
+
+
+			.warning__icon {
+				font-size: 3rem;
+				background: #d20f394f;
+				height: 100%;
+				padding-inline: 1rem;
+				.material-icons {
+					color: rgba(0, 0, 0, 0.526);
+				}
+			}
+
+			.warning__text {
+				padding: 1rem;
+				height: 100%;
+			}
+
+			strong {
+				font-weight: 600;
+			}
+		}
+
+		.submit__btn {
+			width: 100%;
+			&:hover {
+				scale: 102%;
+			}
+		}
+	}
+}

@@ -1,0 +1,114 @@
+<script lang="ts">
+	import { onMount } from 'svelte';
+	import { ConnectVVM, LockVVM } from '../logic';
+	import { PB } from '$lib/state';
+	import { goto } from '$app/navigation';
+
+	let timer: number = $state(5);
+
+	onMount(async () => {
+		ConnectVVM($PB);
+
+		const interval = setInterval(() => {
+			timer--;
+			if (timer <= 0) {
+				LockVVM($PB);
+				goto('/vvm');
+				clearInterval(interval);
+			}
+		}, 1000);
+	});
+</script>
+
+<svelte:head>
+	<style>
+		html {
+			overflow: hidden;
+		}
+
+		.credits {
+			width: 100%;
+			text-align: center;
+			margin-bottom: 2rem;
+		}
+	</style>
+</svelte:head>
+
+<div class="page">
+	<div class="left"></div>
+	<img src="/logo_light.svg" alt="amar_vote_logo" class="logo" />
+
+	<img src="/like.png" alt="thumbs_up" class="thumb" />
+	<div class="thankyou">
+		<p class="title">Your votes have been successfully submitted</p>
+		<p class="sub">Thank you for participating in the democratic process. Your voice matters!</p>
+	</div>
+
+	<p class="close">
+		This machine will be locked and available for voting in <span class="time">{timer}</span> seconds
+	</p>
+
+	<div class="right"></div>
+</div>
+
+<style lang="scss">
+	.left,
+	.right {
+		position: absolute;
+		height: 150svh;
+		top: 50%;
+		translate: 0 -50%;
+		left: 0%;
+		background: #1b4547;
+		box-shadow: 0px 0px 5px 10px #1792995b;
+		width: 20vw;
+		border-radius: 0% 150% 150% 0%;
+	}
+
+	.right {
+		left: 100%;
+		translate: -100% -50%;
+		scale: -100%;
+	}
+
+	.page {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: 100svw;
+		gap: 2rem;
+		height: 100svh;
+		overflow-y: hidden;
+	}
+
+	.logo {
+		width: 15vw;
+	}
+
+	.thumb {
+		width: 10vw;
+		margin-block: 2rem;
+	}
+
+	.thankyou {
+		text-align: center;
+
+		.title {
+			font-size: 1.3rem;
+			font-weight: 600;
+		}
+
+		.sub {
+			font-size: 1rem;
+			font-weight: 500;
+		}
+	}
+
+	.close {
+		font-size: 1.2rem;
+		.time {
+			font-weight: 700;
+		}
+	}
+</style>

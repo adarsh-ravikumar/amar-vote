@@ -3,15 +3,14 @@
 	import { ConnectVVM, WatchForVoterInfo } from '../logic';
 	import { PB } from '$lib/state';
 	import { CurrentPostIndex, PostsList, Voter } from '../state';
-	import VotePost from './components/vote_post.svelte';
+	import VotePost from './components/vote_post/vote_post.svelte';
 	import './style.scss';
+	import VoteVerify from './components/vote_verify/vote_verify.svelte';
 
 	onMount(async () => {
 		ConnectVVM($PB);
 		WatchForVoterInfo($PB);
 	});
-
-	let currentSectionIdx: number = $state(0);
 </script>
 
 <div class="page">
@@ -26,10 +25,14 @@
 			<p class="info__house house__{$Voter?.house[0].toLowerCase()}">{$Voter?.house}</p>
 		</div>
 	</nav>
-	{#if $PostsList}
-		<VotePost
-			post={Object.keys($PostsList)[$CurrentPostIndex]}
-			candidates={Object.values($PostsList)[$CurrentPostIndex]}
-		></VotePost>
+	{#if $CurrentPostIndex < Object.keys($PostsList!).length}
+		{#if $PostsList}
+			<VotePost
+				post={Object.keys($PostsList)[$CurrentPostIndex]}
+				candidates={Object.values($PostsList)[$CurrentPostIndex]}
+			></VotePost>
+		{/if}
+	{:else}
+		<VoteVerify />
 	{/if}
 </div>

@@ -1,5 +1,6 @@
 import PocketBase, { type RecordModel } from 'pocketbase';
-import { PostsList } from '../state';
+import { PostsList, Voter, Votes } from '../state';
+import { get } from 'svelte/store';
 
 export interface Candidate {
 	name: string;
@@ -40,4 +41,18 @@ export async function FetchCandidates(pb: PocketBase, house: string): Promise<vo
 	}
 
 	PostsList.set(posts);
+}
+
+export async function SubmitVote(pb: PocketBase): Promise<void> {
+	const candidates: string[] = [];
+	Object.values(get(Votes)).forEach(async (vote) => {
+		candidates.push(vote.id);
+		await pb.collection('candidates').update(vote.id, {
+			'votes+': 1
+		});
+	});
+
+	await pb.collection('votes').update(get(Voter)?.id!, {
+		candidates
+	});
 }
