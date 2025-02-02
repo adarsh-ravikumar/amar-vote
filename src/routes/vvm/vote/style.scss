@@ -53,9 +53,18 @@
 			}
 		}
 
-		img {
-			width: 10%;
+		.logo {
+			width: 20%;
 			margin-top: 10px;
 		}
+	}
+	
+	.credit {
+		position: fixed;
+		bottom: 0;
+		right: 0;
+		margin: 1rem;
+		width: 25vw;
+		margin-top: 10px;
 	}
 }

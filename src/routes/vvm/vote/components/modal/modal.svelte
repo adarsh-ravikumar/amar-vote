@@ -1,5 +1,5 @@
 <script lang="ts">
-	import "./modal.scss";
+	import './modal.scss';
 
 	import { Votes, CurrentPostIndex, ShowModal } from '../../../state';
 	import Card from '../card/card.svelte';
@@ -39,8 +39,7 @@
 			/>
 
 			<p class="modal__content">
-				If you'd like to change your choice, please do so now, as you will not be permitted to do so
-				later.
+				For the post "{post}"
 			</p>
 
 			<div class="modal__buttons">
