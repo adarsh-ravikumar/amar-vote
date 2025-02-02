@@ -1,8 +1,10 @@
 import PocketBase from 'pocketbase';
-import { CurrentPostIndex, PostsList, ShowModal, Voter, Votes, VVM } from './state';
 import type { RecordModel } from 'pocketbase';
 import { get } from 'svelte/store';
+
 import { FetchCandidates } from './vote/logic';
+
+import { CurrentPostIndex, PostsList, ShowModal, Voter, Votes, VVM } from './state';
 
 interface SessionInfo {
 	lastSessionNum: number;

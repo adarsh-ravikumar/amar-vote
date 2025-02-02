@@ -13,6 +13,7 @@
 		width: 100%;
 		margin-block: 1rem;
 		text-align: center;
+		
 	}
 
 	button {
@@ -129,6 +130,12 @@
 			&:hover {
 				scale: 102%;
 			}
+		}
+
+		.credit {
+			position: static;
+			margin-top: 2rem;
+			width: 30vw;
 		}
 	}
 }

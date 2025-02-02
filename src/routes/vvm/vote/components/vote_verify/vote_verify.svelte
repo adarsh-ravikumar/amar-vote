@@ -55,5 +55,7 @@
 		>
 			<span class="material-icons">ballot</span> Submit Vote
 		</button>
+		<img class="credit" src="/credit.png" alt="credit" />
+
 	</div>
 </div>

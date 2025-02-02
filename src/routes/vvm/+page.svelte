@@ -1,4 +1,6 @@
 <script lang="ts">
+	import './style.scss';
+
 	import { onMount } from 'svelte';
 	import { ConnectVVM, WatchForVoterInfo } from './logic';
 	import { PB } from '$lib/state';
@@ -8,105 +10,47 @@
 	onMount(() => {
 		ConnectVVM($PB);
 		WatchForVoterInfo($PB);
-
 	});
 </script>
 
 {#if $VVM}
 	<div class="wrapper">
-		<p class="content">Machine Number</p>
-		<p class="content_display">
-			{`${$VVM.machine_num}`.length == 1 ? '0' : ''}{$VVM.machine_num}
-		</p>
-
 		{#if !$VVM.session_active}
+			<p class="content">Machine Number</p>
+			<p class="content_display">
+				{`${$VVM.machine_num}`.length == 1 ? '0' : ''}{$VVM.machine_num}
+			</p>
+
 			<div class="locked">
 				<span class="material-icons"> lock </span>
 				<p class="content">Locked</p>
 			</div>
 		{:else if $Voter}
-			<div class="details">
-				<p class="title">Voter Information</p>
-				<p class="content"><strong>Name:</strong>{$Voter.name}</p>
-				<p class="content"><strong>Class:</strong>{$Voter.class} {$Voter.section}</p>
-				<p class="content"><strong>House:</strong>{$Voter.house}</p>
+			<div class="row">
+				<div class="col">
+					<p class="content">Machine Number</p>
+					<p class="content_display">
+						{`${$VVM.machine_num}`.length == 1 ? '0' : ''}{$VVM.machine_num}
+					</p>
+				</div>
+				<div class="col">
+					<div class="details">
+						<p class="title">Voter Information</p>
+						<p class="content"><strong>Name:</strong>{$Voter.name}</p>
+						<p class="content"><strong>Class:</strong>{$Voter.class} {$Voter.section}</p>
+						<p class="content"><strong>House:</strong>{$Voter.house}</p>
+					</div>
+					<button
+						class="vote"
+						onclick={() => {
+							goto('/vvm/vote');
+						}}><span class="material-icons"> how_to_vote </span>Proceed To Vote</button
+					>
+				</div>
 			</div>
-			<button
-				class="vote"
-				onclick={() => {
-					goto('/vvm/vote');
-				}}><span class="material-icons"> how_to_vote </span>Proceed To Vote</button
-			>
+
 		{/if}
+
+		<img src="/amar_school_branded.png" alt="amar_logo" />
 	</div>
 {/if}
-
-<style lang="scss">
-	@use '../../styles/vars' as *;
-
-	.wrapper {
-		display: flex;
-		flex-direction: column;
-		height: 100svh;
-		align-items: center;
-		justify-content: center;
-		gap: 1.2rem;
-	}
-
-	.locked {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
-
-	.details {
-		border-radius: 0.3rem;
-		box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-		padding: 1rem 2rem;
-
-		.title {
-			font-size: 1.4rem;
-			font-weight: 700;
-			text-decoration: underline;
-			text-align: center;
-		}
-
-		.content {
-			font-size: 1.2rem;
-		}
-		strong {
-			padding-right: 0.5rem;
-			font-weight: 600;
-		}
-	}
-
-	.vote {
-		cursor: pointer;
-		transition: scale 0.1s ease;
-
-		&:hover {
-			scale: 105%;
-		}
-
-		&:active {
-			scale: 100%;
-		}
-
-		outline: none;
-		border: none;
-		background: $latte-teal;
-		padding: 0.5rem 2rem;
-		font-size: 1.2rem;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 1rem;
-		border-radius: 0.2rem;
-		cursor: pointer;
-
-		&,
-		span {
-			color: white;
-		}
-	}
-</style>
