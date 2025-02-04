@@ -4,7 +4,7 @@
 	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
-		"dev": "concurrently \"vite dev --host\" \"bun run src/spawn_backend.ts\" \"bun tsc --watch backend/pb_hooks/src/*.pb.ts --outDir backend/pb_hooks\"",
+		"dev": "vite dev --host",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",

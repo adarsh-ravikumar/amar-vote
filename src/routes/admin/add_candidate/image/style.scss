@@ -86,7 +86,7 @@ canvas {
 .modal__wrapper {
 	position: absolute;
 	width: 100vw;
-	height: 100vh;
+	min-height: 100svh;
 	top: 0;
 	left: 0;
 	background: rgba(0, 0, 0, 0.2);

@@ -3,7 +3,7 @@
 .wrapper {
 	display: flex;
 	flex-direction: column;
-	height: 100svh;
+	min-height: 100svh;
 	align-items: center;
 	justify-content: center;
 	gap: 1.2rem;

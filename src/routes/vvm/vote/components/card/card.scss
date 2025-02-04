@@ -11,34 +11,45 @@
 	}
 
 	transition: opacity 0.2s ease;
-
-	display: grid;
-	gap: 1rem;
-	grid-template-columns: 1fr 1fr;
+	
+	display: flex;
+	flex-direction: column;
 	// align-items: center;
 	background: #209fb516;
 	padding: 1rem;
 	border-radius: 0.3rem;
+	width: 100%;
+	min-width: fit-content;
 
-	.card__img {
+	.row {
 		display: flex;
-		flex-direction: column;
+		gap: 2rem;
+	}
+	
+	.img__icon {
+		width: 7rem;
+		object-fit: cover;
+		border-radius: 0.3rem;
+	}
 
-		.img__candidate,
-		.img__icon {
-			width: 5rem;
-		}
+	.img__candidate  {
+		height: 100%;
+		width: 15rem;
+		object-fit: cover;
+		border-radius: 0.3rem;
 	}
 
 	.card__info {
+		margin-block: 0.5rem;
 		.info__name {
 			font-size: 1.5rem;
 			font-weight: 500;
+			white-space: nowrap;
 		}
 	}
 
 	.vote {
 		padding: 0.5rem;
-		grid-column: 1 / span 2;
+		margin-top: 0.5rem;
 	}
 }

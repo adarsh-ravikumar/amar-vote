@@ -2,9 +2,11 @@
 
 
 .post__wrapper {
-	display: grid;
+	display: flex;
+	flex-direction: column;
 	place-items: center;
-	width: fit-content;
+	width: 100%;
+	
 	margin-inline: auto;
 
 	.nav {
@@ -70,8 +72,10 @@
 	}
 
 	.can {
+		align-self: start;
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
+		width: 100%;
 		gap: 5rem;
 		margin-top: 2rem;
 		overflow-y: scroll;

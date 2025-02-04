@@ -1,7 +1,7 @@
 import PocketBase from "pocketbase";
 import { PB } from "./state";
 
-export const PB_URL = 'http://192.168.1.241:8090'
+export const PB_URL = 'https://amar-vote.pockethost.io'
 
 export function ConnectPocketBase(url: string): void {
     const pb = new PocketBase(url);

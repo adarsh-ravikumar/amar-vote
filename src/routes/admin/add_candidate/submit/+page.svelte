@@ -6,8 +6,11 @@
 	import { CandidateData, Posts } from '../state';
 	import './style.scss';
 	import { PB_URL } from '$lib/api';
+	import Loader from '../../../../components/loader.svelte';
+	import { transformWithEsbuild } from 'vite';
 
 	let registered: boolean = $state(false);
+	let requestedRegister: boolean = $state(false);
 	let icon: { collection: string; id: string; icon: string } | null = $state(null);
 
 	onMount(async () => {
@@ -16,9 +19,14 @@
 	});
 </script>
 
+{#if !$CandidateData || requestedRegister}
+	<Loader></Loader>
+{/if}
+
 {#if $CandidateData && icon}
 	<div class="page">
 		{#if registered}
+			{(requestedRegister = false)}
 			<div class="modal__wrapper">
 				<div class="modal">
 					<p class="modal__title">Candidate Registered</p>
@@ -62,6 +70,7 @@
 
 		<button
 			onclick={async () => {
+				requestedRegister = true;
 				registered = await RegisterCandidate($PB, $CandidateData!);
 			}}><span class="material-icons">person_add</span> Register Candidate</button
 		>

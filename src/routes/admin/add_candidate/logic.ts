@@ -13,7 +13,9 @@ export async function FetchPosts(pb: PocketBase): Promise<void> {
 	Posts.set(postList);
 }
 
-export async function FetchIcon(pb: PocketBase): Promise<{ collection: string, id: string; icon: string }> {
+export async function FetchIcon(
+	pb: PocketBase
+): Promise<{ collection: string; id: string; icon: string }> {
 	const icon = await pb.collection('icons').getFirstListItem('assigned = false');
 	return { id: icon.id, collection: icon.collectionId, icon: icon.icon };
 }
@@ -39,12 +41,16 @@ export async function RegisterCandidate(pb: PocketBase, data: Candidate): Promis
 	try {
 		const created: RecordModel = await pb.collection('candidates').create(form);
 
+		// update post
+		await pb.collection('posts').update(data.post, {
+			'candidates+': created.id
+		});
 		// update icon status
-		await pb.collection("icons").update(data.icon, {
+		await pb.collection('icons').update(data.icon, {
 			assigned: true,
 			assigned_to: created.id
-		})
-		
+		});
+
 		return created ? true : false;
 	} catch {
 		return false;

@@ -8,7 +8,14 @@
 	import { SubmitVote } from '../../logic';
 	import { PB } from '$lib/state';
 	import { goto } from '$app/navigation';
+	import Loader from '../../../../../components/loader.svelte';
+
+	let requestedConfirm: boolean = $state(false);
 </script>
+
+{#if requestedConfirm}
+	<Loader></Loader>
+{/if}
 
 <div class="verify__wrapper">
 	<div class="nav">
@@ -49,13 +56,14 @@
 		<button
 			class="submit__btn"
 			onclick={async () => {
+				requestedConfirm = true;
 				await SubmitVote($PB);
-				goto("/vvm/thankyou")
+				requestedConfirm = false;
+				goto('/vvm/thankyou');
 			}}
 		>
 			<span class="material-icons">ballot</span> Submit Vote
 		</button>
 		<img class="credit" src="/credit.png" alt="credit" />
-
 	</div>
 </div>

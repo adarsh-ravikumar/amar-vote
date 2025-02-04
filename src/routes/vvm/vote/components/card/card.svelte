@@ -16,22 +16,19 @@
 </script>
 
 <div class="can__card {voted && !isSelected ? 'card--disabled' : ''}">
-	<div class="card__img">
-		<img
-			src="{PB_URL}/api/files/candidates/{candidate.id}/{candidate.image}"
-			alt="candidate_image"
-			class="img__candidate"
-		/>
-		<img
-			src="{PB_URL}/api/files/candidates/{candidate.id}/{candidate.icon}"
-			alt="candidate_icon"
-			class="img__icon"
-		/>
+	<div class="row">
+		<div class="left">
+			<img src={candidate.icon} alt="candidate_icon" class="img__icon" />
+			<div class="card__info">
+				<p class="info__name">{candidate.name}</p>
+				<p class="info__class">{candidate.class} - {candidate.section}</p>
+			</div>
+		</div>
+		<div class="card__img">
+			<img src={candidate.image} alt="candidate_image" class="img__candidate" />
+		</div>
 	</div>
-	<div class="card__info">
-		<p class="info__name">{candidate.name}</p>
-		<p class="info__class">{candidate.class} - {candidate.section}</p>
-	</div>
+
 	{#if vote}
 		<button
 			class="vote"

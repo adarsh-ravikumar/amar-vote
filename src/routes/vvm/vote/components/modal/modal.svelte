@@ -38,7 +38,7 @@
 				vote={false}
 			/>
 
-			<p class="modal__content">
+			<p class="modal__content" style="text-align:center">
 				For the post "{post}"
 			</p>
 

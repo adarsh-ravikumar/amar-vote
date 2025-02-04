@@ -2,7 +2,7 @@
 
 .wrapper {
 	display: grid;
-	height: 100svh;
+	min-height: 100svh;
 	place-content: center;
 }
 
@@ -29,7 +29,7 @@
 	top: 0;
 	background: rgba(41, 43, 57, 0.9);
 	width: 100vw;
-	height: 100vh;
+	min-height: 100svh;
 	display: grid;
 	place-content: center;
 

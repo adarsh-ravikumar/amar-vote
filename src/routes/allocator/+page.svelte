@@ -3,6 +3,7 @@
 	import { CreateVoter, CheckIfVoted, GetVVM, SendVoterData, type VoterData } from './logic';
 	import { Machine } from './state';
 	import { PB } from '$lib/state';
+	import Loader from '../../components/loader.svelte';
 
 	let name: string = $state('');
 	let _class: string = $state('');
@@ -12,6 +13,7 @@
 	let dataNotFilled: boolean = $state(false);
 	let alreadyVoted: boolean = $state(false);
 	let showModal: boolean = $state(false);
+	let requestedMachine: boolean = $state(false);
 
 	const HOUSE_RIG = 'Rig';
 	const HOUSE_SAMA = 'Sama';
@@ -24,6 +26,7 @@
 			showModal = true;
 			return;
 		}
+		requestedMachine = true;
 
 		const data: VoterData = {
 			id: undefined,
@@ -38,21 +41,28 @@
 		if (hasVoted) {
 			alreadyVoted = true;
 			showModal = true;
+			requestedMachine = false;
+
 			return;
 		}
 
 		// create voter
 		const voter = await CreateVoter($PB, data);
 		showModal = true;
+		requestedMachine = false;
 		// check for free machines
 		// if no machine free, keep polling and keep waiting
 		GetVVM($PB);
 
 		// once machine free, send voter data to the machine
 		Machine.subscribe(async (vvm) => {
-			if (!vvm) return;
+			if (vvm === undefined) {
+				showModal = false;
+				return;
+			}
 			await SendVoterData($PB, voter);
 			showModal = true;
+			requestedMachine = false;
 		});
 
 		// clear
@@ -60,6 +70,10 @@
 		house = '';
 	}
 </script>
+
+{#if requestedMachine}
+	<Loader></Loader>
+{/if}
 
 <div class="wrapper">
 	{#if showModal}
@@ -112,6 +126,7 @@
 			</div>
 		</div>
 	{/if}
+
 	<div class="form">
 		<img src="/amar_school_branded.png" alt="amar_logo" />
 		<!-- <div class="logo">
