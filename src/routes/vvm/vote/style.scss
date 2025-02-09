@@ -1,7 +1,12 @@
 @use '../../../styles/vars' as *;
 .page {
 	padding: 1rem;
-
+	display: flex;
+	flex-direction: column;
+	align-items: center !important;
+	justify-content: start !important;
+	width: 95vw;
+	
 	nav {
 		display: flex;
 		justify-content: space-between;
@@ -58,13 +63,10 @@
 			margin-top: 10px;
 		}
 	}
-	
+
 	.credit {
-		position: fixed;
-		bottom: 0;
-		right: 0;
-		margin: 1rem;
 		width: 25vw;
-		margin-top: 10px;
+		margin-top: 5rem;
+		margin-inline: auto;
 	}
 }

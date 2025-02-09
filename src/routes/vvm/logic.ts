@@ -29,7 +29,7 @@ function StoreSessionInfo(vvm: RecordModel): void {
 }
 
 async function ValidateMachineNumber(pb: PocketBase, num: number): Promise<number> {
-	const nextNumberInList = (await pb.collection('vvm').getFullList()).length + 1;
+	const nextNumberInList = (await pb.collection('vvm').getFullList({requestKey: null})).length + 1;
 	if (num === 0) return nextNumberInList;
 
 	try {
@@ -97,7 +97,9 @@ export async function WatchForVoterInfo(pb: PocketBase): Promise<void> {
 		if (get(Voter)) return;
 
 		if (vvm.session_active) {
-			const voter = await pb.collection('vvm').getFirstListItem(`id="${vvm.id}"`);
+			const voter = await pb
+				.collection('vvm')
+				.getFirstListItem(`id="${vvm.id}"`, { requestKey: null });
 			await updateInfo(voter);
 		}
 	});
@@ -120,10 +122,14 @@ export async function WatchForVoterInfo(pb: PocketBase): Promise<void> {
 }
 
 export async function LockVVM(pb: PocketBase): Promise<void> {
-	await pb.collection('vvm').update(get(VVM)?.id!, {
-		voter: [],
-		session_active: false
-	});
+	await pb.collection('vvm').update(
+		get(VVM)?.id!,
+		{
+			voter: [],
+			session_active: false
+		},
+		{ requestKey: null }
+	);
 
 	// reset all states
 	Voter.set(null);

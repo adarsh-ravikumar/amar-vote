@@ -1,0 +1,34 @@
+@use '../../../styles/vars' as *;
+
+.upload {
+	padding: 2rem 4rem;
+	outline: 2px dashed $latte-teal;
+	border-radius: 0.3rem;
+	margin-bottom: 1rem;
+
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 2rem;
+	background: transparent;
+
+	&.drag {
+		background: #17929918;
+	}
+
+	p {
+		font-size: 1rem;
+		font-weight: 600;
+		line-height: 0.2;
+		color: $latte-teal;
+	}
+
+	.or {
+		font-size: 0.8rem;
+		font-weight: 400;
+	}
+
+	.hide {
+		display: none;
+	}
+}

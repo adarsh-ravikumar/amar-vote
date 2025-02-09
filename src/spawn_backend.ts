@@ -4,7 +4,7 @@ import os from 'os';
 const isWindows = os.platform() === 'win32';
 const pbExec = isWindows ? 'pocketbase.exe' : 'pocketbase';
 const pbPath = `./backend/${pbExec}`
-const command: string = 'serve'; 
+const command: string = 'serve --http="192.168.1.241:8090"'; 
 
 const pocketbaseProcess = spawn(pbPath, [command], {
   stdio: 'inherit',

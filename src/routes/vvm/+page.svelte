@@ -6,8 +6,11 @@
 	import { PB } from '$lib/state';
 	import { Voter, VVM } from './state';
 	import { goto } from '$app/navigation';
+	import Loader from '../../components/loader.svelte';
+	import { ConnectPocketBase, PB_URL } from '$lib/api';
 
 	onMount(() => {
+		ConnectPocketBase(PB_URL);
 		ConnectVVM($PB);
 		WatchForVoterInfo($PB);
 	});
@@ -43,14 +46,17 @@
 					<button
 						class="vote"
 						onclick={() => {
-							goto('/vvm/vote');
+							goto('/vvm/instructions');
 						}}><span class="material-icons"> how_to_vote </span>Proceed To Vote</button
 					>
 				</div>
 			</div>
-
+		{:else}
+			<Loader></Loader>
 		{/if}
 
 		<img src="/amar_school_branded.png" alt="amar_logo" />
 	</div>
+{:else}
+	<Loader></Loader>
 {/if}

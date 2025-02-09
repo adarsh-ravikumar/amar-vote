@@ -1,0 +1,82 @@
+@use '../../../../../styles/vars' as *;
+
+.modal__wrapper {
+	position: absolute;
+	width: 100vw;
+	min-height: 100svh;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.2);
+	display: grid;
+	place-items: center;
+	z-index: 100;
+
+	.modal {
+		background: $latte-base;
+		width: 40vw;
+		padding: 1rem;
+		border-radius: 0.3rem;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+		
+		@media only screen and (max-width: 700px) {
+			width: 90vw;
+			.modal__content {
+				width: 100% !important;
+			}
+
+			.modal__button {
+				padding-inline: 1rem;
+				white-space: nowrap;
+				font-size: 1rem;
+			}
+		}
+		
+
+		.modal__title {
+			font-size: 1.5rem;
+			font-weight: 600;
+			margin-bottom: 1rem;
+			text-align: center;
+		}
+
+		.modal__content {
+			font-size: 1rem;
+			margin-bottom: 1rem;
+			width: 80%;
+			margin-inline: auto;
+		}
+		
+		strong {
+			margin-right: 0.5rem;
+		}
+
+		.modal__candidate {
+			padding: 0.5rem;
+			border-radius: 0.3rem;
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+			margin: 0.5rem;
+		}
+
+		.modal__buttons {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 1rem;
+		}
+
+		.modal__button {
+			margin-inline: auto;
+			padding-inline: 2rem;
+
+			&.modal__button--error {
+				background: $latte-red;
+			}
+		}
+
+		.can__card {
+			width: 80%;
+			margin-inline: auto;
+			margin-bottom: 1rem;
+		}
+	}
+}

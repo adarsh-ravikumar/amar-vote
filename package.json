@@ -4,7 +4,7 @@
 	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
-		"dev": "concurrently \"vite dev --host\" \"bun run src/spawn_backend.ts\" \"bun tsc --watch backend/pb_hooks/src/*.pb.ts --outDir backend/pb_hooks\"",
+		"dev": "vite dev --host",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -32,6 +32,8 @@
 	},
 	"dependencies": {
 		"concurrently": "^9.1.2",
+		"nodemailer": "^6.10.0",
+		"pdf-lib": "^1.17.1",
 		"pocketbase": "^0.25.0",
 		"sass-embedded": "^1.83.4"
 	}

@@ -18,7 +18,7 @@ export async function CheckIfVoted(pb: PocketBase, data: VoterData): Promise<boo
 			.getFirstListItem(
 				`name = "${data.name}" && class = "${data.class}" && section= "${data.section}"`
 			);
-	
+
 		return existingVoter !== undefined;
 	} catch {
 		return false;
@@ -36,7 +36,7 @@ export async function CreateVoter(pb: PocketBase, data: VoterData): Promise<Vote
 export async function WaitForVVM(pb: PocketBase): Promise<void> {
 	let freeMachine: RecordModel | undefined = undefined;
 
-	Machine.set({ id: undefined, machine_num: '0' });
+	Machine.set({ id: undefined, machine_num: undefined});
 	await pb.collection('vvm').subscribe('*', (e) => {
 		if (e.action == 'update' && e.record.session_active == false) {
 			freeMachine = e.record;
@@ -47,6 +47,7 @@ export async function WaitForVVM(pb: PocketBase): Promise<void> {
 
 export async function GetVVM(pb: PocketBase): Promise<void> {
 	let freeMachine: RecordModel | undefined = undefined;
+	Machine.set({ id: undefined, machine_num: undefined });
 
 	freeMachine = (
 		await pb.collection('vvm').getList(1, 50, {
