@@ -2,13 +2,13 @@
 	import { AnalyticsData, PositionsData, ResultsData } from './state';
 </script>
 
-<div class="page page--center">
+<div class="print__page page--center">
 	<p>ANALYTICS</p>
 </div>
 
 {#each $AnalyticsData as post}
-	<div class="page">
-		<p class="title">{post.pos}</p>
+	<div class="print__page">
+		<p class="print__title">{post.pos}</p>
 
 		<table>
 			<thead>
@@ -43,7 +43,7 @@
 		color: black;
 	}
 
-	.title {
+	.print__title {
 		font-size: 1.3rem;
 		font-weight: bold;
 		text-decoration: underline;
@@ -51,7 +51,7 @@
 		margin-bottom: 0.5rem;
 	}
 
-	.page {
+	.print__page {
 		break-inside: avoid;
 	}
 

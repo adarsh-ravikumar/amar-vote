@@ -1,6 +1,6 @@
-<div class="page">
-	<p class="title">Conclusion</p>
-	<p class="content">
+<div class="print__page">
+	<p class="print__title">Conclusion</p>
+	<p class="print__content">
 		In conclusion, this report provides a comprehensive overview of the school parliament elections,
 		detailing the candidates, voter turnout, and the overall electoral process. Through the diligent
 		efforts of the election department and the active participation of students, faculty, and staff,
@@ -30,12 +30,12 @@
 		color: black;
 	}
 
-	.page {
+	.print__page {
 		break-after: always;
 		break-inside: avoid;
 	}
 
-	.title {
+	.print__title {
 		font-size: 1.3rem;
 		font-weight: bold;
 		text-decoration: underline;
@@ -43,7 +43,7 @@
 		margin-bottom: 0.5rem;
 	}
 
-	.content {
+	.print__content {
 		font-size: 1rem;
 		text-align: justify;
 		line-height: 2.5;

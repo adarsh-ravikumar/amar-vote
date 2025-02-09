@@ -1,6 +1,6 @@
-<div class="page">
-	<p class="title">Acknowledgement</p>
-	<p class="content">
+<div class="print__page">
+	<p class="print__title">Acknowledgement</p>
+	<p class="print__content">
 		The School Election Department extends its heartfelt thanks to The Principal and the sincerest
 		appreciation to all students, faculty, and staff who participated in the electoral process for
 		the student parliament elections. Your enthusiasm, engagement, and commitment to the democratic
@@ -28,12 +28,12 @@
 		color: black;
 	}
 
-    .page {
+    .print__page {
         break-after: always;
         break-inside: avoid;
     }
 
-	.title {
+	.print__title {
 		font-size: 1.3rem;
 		font-weight: bold;
 		text-decoration: underline;
@@ -41,7 +41,7 @@
 		margin-bottom: 0.5rem;
 	}
 
-	.content {
+	.print__content {
 		font-size: 1rem;
 		text-align: justify;
 		line-height: 2.5;

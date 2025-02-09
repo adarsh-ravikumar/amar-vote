@@ -86,9 +86,9 @@
 	<Analytics />
 	<Conclusion />
 {:else}
-	<div class="loading">
-		<p class="">Generating Report...</p>
-		<div class="loader"></div>
+	<div class="print__loading">
+		<p >Generating Report...</p>
+		<div class="print__loader"></div>
 	</div>
 {/if}
 
@@ -102,7 +102,7 @@
 		}
 	}
 
-	.loading {
+	.print__loading {
 		display: flex;
 		align-items: center;
 		flex-direction: column;
@@ -114,21 +114,21 @@
 	}
 
 	// src: https://css-loaders.com/circle/
-	.loader {
+	.print__loader {
 		width: 65px;
 		aspect-ratio: 1;
 		position: relative;
 		scale: 50%;
 	}
-	.loader:before,
-	.loader:after {
+	.print__loader:before,
+	.print__loader:after {
 		content: '';
 		position: absolute;
 		border-radius: 50px;
 		box-shadow: 0 0 0 3px inset $latte-text;
 		animation: l4 2.5s infinite;
 	}
-	.loader:after {
+	.print__loader:after {
 		animation-delay: -1.25s;
 	}
 	@keyframes l4 {

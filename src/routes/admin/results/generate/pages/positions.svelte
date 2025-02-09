@@ -2,8 +2,8 @@
 	import { PositionsData } from './state';
 </script>
 
-<div class="page">
-	<p class="title">Positions</p>
+<div class="print__page">
+	<p class="print__title">Positions</p>
 
 	<table>
 		<thead>
@@ -31,14 +31,14 @@
 		color: black;
 	}
 
-	.title {
+	.print__title {
 		font-size: 1.3rem;
 		font-weight: bold;
 		text-decoration: underline;
 		text-align: center;
 		margin-bottom: 0.5rem;
 	}
-	.page {
+	.print__page {
 		break-after: always;
 		break-inside: avoid;
 	}
