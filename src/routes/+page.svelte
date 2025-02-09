@@ -2,54 +2,67 @@
 	import { goto } from '$app/navigation';
 </script>
 
-<div class="grid">
-	<!-- svelte-ignore a11y_click_events_have_key_events -->
-	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<div
-		class="card"
-		onclick={() => {
-			goto('/admin');
-		}}
-	>
-		<span class="material-icons">settings</span>
-		<p>Admin</p>
-	</div>
-	<!-- svelte-ignore a11y_click_events_have_key_events -->
-	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<div
-		class="card"
-		onclick={() => {
-			goto('/allocator');
-		}}
-	>
-		<span class="material-icons">ballot</span>
-		<p>Allocator</p>
-	</div>
-	<!-- svelte-ignore a11y_click_events_have_key_events -->
-	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<div
-		class="card"
-		onclick={() => {
-			goto('/vvm');
-		}}
-	>
-		<span class="material-icons">how_to_vote</span>
-		<p>VVM</p>
+<div class="page">
+	<img src="/amar_school_branded.png" alt="amar_logo" />
+	<div class="grid">
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div
+			class="card"
+			onclick={() => {
+				goto('/admin');
+			}}
+		>
+			<span class="material-icons">settings</span>
+			<p>Admin</p>
+		</div>
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div
+			class="card"
+			onclick={() => {
+				goto('/allocator');
+			}}
+		>
+			<span class="material-icons">ballot</span>
+			<p>Allocator</p>
+		</div>
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div
+			class="card"
+			onclick={() => {
+				goto('/vvm');
+			}}
+		>
+			<span class="material-icons">how_to_vote</span>
+			<p>VVM</p>
+		</div>
 	</div>
 </div>
 
 <style lang="scss">
 	@use '../styles/vars' as *;
+	.page {
+		width: 100vw;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		display: grid;
+		place-items: center;
+		gap: 2rem;
+		img {
+			width: 25%;
+		}
+	}
 	.grid {
+		margin-inline: auto;
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: 2rem;
 		height: 50vh;
 		width: 70vw;
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
 
 		.card {
 			cursor: pointer;
