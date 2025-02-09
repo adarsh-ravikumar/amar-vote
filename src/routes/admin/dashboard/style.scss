@@ -1,0 +1,37 @@
+@use '../../../styles/vars' as *;
+
+.info {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+	gap: 1rem;
+	width: 100%;
+	height: 100%;
+
+	.count {
+		width: 100%;
+		background: $latte-crust;
+		aspect-ratio: 3/2;
+        border-radius: 0.3rem;
+
+		.count__title {
+			text-align: center;
+			font-weight: 600;
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			width: fit-content;
+			margin-inline: auto;
+			color: $latte-text;
+			opacity: 0.5;
+			margin-top: 0.5rem;
+		}
+
+		.count__num {
+			font-size: 5rem;
+			font-weight: 600;
+			color: $latte-teal;
+			text-align: center;
+		}
+	}
+}

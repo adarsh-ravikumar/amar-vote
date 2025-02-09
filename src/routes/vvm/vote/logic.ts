@@ -21,8 +21,6 @@ export async function FetchCandidates(pb: PocketBase, house: string): Promise<vo
 	});
 
 	let posts: { [key: string]: Candidate[] } = {};
-	console.log(data);
-
 	for (let i = 0; i < data.length; i++) {
 		const post: RecordModel = data[i];
 
@@ -44,8 +42,6 @@ export async function FetchCandidates(pb: PocketBase, house: string): Promise<vo
 			});
 		}
 	}
-
-	console.log(posts);
 
 	PostsList.set(posts);
 }

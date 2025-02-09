@@ -13,4 +13,5 @@ export interface Candidate {
 export const Posts: Writable<{ [key: string]: string }> = writable({});
 export const ShowModal: Writable<boolean> = writable(false);
 export const CandidateData: Writable<Candidate | undefined> = writable(undefined);
+export const Icon: Writable<{ collection: string; id: string; icon: string } | null> = writable(null);
 

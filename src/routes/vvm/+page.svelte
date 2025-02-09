@@ -6,10 +6,11 @@
 	import { PB } from '$lib/state';
 	import { Voter, VVM } from './state';
 	import { goto } from '$app/navigation';
-	import { FetchCandidates } from './vote/logic';
 	import Loader from '../../components/loader.svelte';
+	import { ConnectPocketBase, PB_URL } from '$lib/api';
 
 	onMount(() => {
+		ConnectPocketBase(PB_URL);
 		ConnectVVM($PB);
 		WatchForVoterInfo($PB);
 	});

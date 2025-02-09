@@ -3,19 +3,16 @@
 	import { PB } from '$lib/state';
 	import { onMount } from 'svelte';
 	import { FetchIcon, RegisterCandidate } from '../logic';
-	import { CandidateData, Posts } from '../state';
+	import { CandidateData, Icon, Posts } from '../state';
 	import './style.scss';
 	import { PB_URL } from '$lib/api';
 	import Loader from '../../../../components/loader.svelte';
-	import { transformWithEsbuild } from 'vite';
 
 	let registered: boolean = $state(false);
 	let requestedRegister: boolean = $state(false);
-	let icon: { collection: string; id: string; icon: string } | null = $state(null);
-
+	
 	onMount(async () => {
-		icon = await FetchIcon($PB);
-		$CandidateData!.icon = icon.id;
+		$CandidateData!.icon = $Icon!.id;
 	});
 </script>
 
@@ -23,10 +20,9 @@
 	<Loader></Loader>
 {/if}
 
-{#if $CandidateData && icon}
+{#if $CandidateData && $Icon!}
 	<div class="page">
 		{#if registered}
-			{(requestedRegister = false)}
 			<div class="modal__wrapper">
 				<div class="modal">
 					<p class="modal__title">Candidate Registered</p>
@@ -55,7 +51,7 @@
 				<div class="icon">
 					<p>Campaign Icon</p>
 					<img
-						src={`${PB_URL}/api/files/${icon.collection}/${icon.id}/${icon.icon}`}
+						src={`${PB_URL}/api/files/${$Icon!.collection}/${$Icon!.id}/${$Icon!.icon}`}
 						alt="campaign_icon"
 					/>
 				</div>
@@ -72,6 +68,7 @@
 			onclick={async () => {
 				requestedRegister = true;
 				registered = await RegisterCandidate($PB, $CandidateData!);
+				requestedRegister = false;
 			}}><span class="material-icons">person_add</span> Register Candidate</button
 		>
 	</div>

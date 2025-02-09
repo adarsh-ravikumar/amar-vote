@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import './style.scss';
-	import { FetchPosts } from './logic';
+	import { FetchIcon, FetchPosts } from './logic';
 	import { ConnectPocketBase, PB_URL } from '$lib/api';
 	import { PB } from '$lib/state';
-	import { CandidateData, Posts, ShowModal } from './state';
+	import { CandidateData, Icon, Posts, ShowModal } from './state';
 	import Modal from './components/modal/modal.svelte';
+	import Loader from '../../../components/loader.svelte';
 
 	let name: string = $state('');
 	let _class: string = $state('');
@@ -13,9 +14,21 @@
 	let post: string = $state('');
 	let email: string = $state('');
 
+	let requestedPosts: boolean = $state(false);
+	let noIcon: boolean = $state(false);
+
 	onMount(async () => {
 		ConnectPocketBase(PB_URL);
-		FetchPosts($PB);
+		requestedPosts = true;
+		try {
+			$Icon = await FetchIcon($PB);
+			noIcon = false;
+		} catch (e) {
+			noIcon = true;
+		}
+		
+		await FetchPosts($PB);
+		requestedPosts = false;
 	});
 
 	function ContinueForm() {
@@ -33,7 +46,24 @@
 	}
 </script>
 
-{#if $Posts}
+{#if requestedPosts}
+	<Loader></Loader>
+{/if}
+
+{#if noIcon}
+	<div class="page">
+		<div class="form">
+			<img class="logo" src="/amar_school_branded_nocredit.png" alt="amar_logo" />
+			<img class="credit" src="/credit.png" alt="amar_logo" />
+			<div style="text-align: center;">
+				<h2>No campaign icons found!</h2>
+				<h4> Upload more campaign icons in the admin panel to continue...</h4>
+			</div>
+		</div>
+	</div>
+{/if}
+
+{#if Object.keys($Posts).length > 0 && !noIcon}
 	{#if $ShowModal}
 		<Modal />
 	{/if}
