@@ -10,11 +10,15 @@
 
 	onMount(() => {
 		ConnectPocketBase(PB_URL);
+		if (localStorage.getItem('logedin') == 'true') {
+			$LoggedIn = true;
+		}
 	});
 
 	function Password() {
 		if (pwd === 'vote@chinmaya') {
 			$LoggedIn = true;
+			localStorage.setItem('logedin', 'true');
 		} else {
 			wrongPass = true;
 		}
