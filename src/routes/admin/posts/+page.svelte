@@ -25,7 +25,6 @@
 	let editHouse: string = $state('');
 	let editError: string = $state('');
 
-
 	let createModalFlyOut: boolean = $state(false);
 	let editModalFlyOut: boolean = $state(false);
 
@@ -151,7 +150,7 @@
 					}}><span class="material-icons-outlined edit-icon">edit</span></button
 				>
 				{#if editing == row[0]}
-					<div class="modal {editModalFlyOut ? 'fly-out' : ''}">
+					<div class="table__modal {editModalFlyOut ? 'fly-out' : ''}">
 						<div class="container">
 							<div class="title_wrapper">
 								<label for="title">Post Title</label>
