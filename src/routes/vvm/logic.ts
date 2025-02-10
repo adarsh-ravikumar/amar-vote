@@ -22,14 +22,19 @@ async function GetLastSessionInfo(): Promise<SessionInfo> {
 }
 
 function StoreSessionInfo(vvm: RecordModel): void {
-	localStorage.setItem('machine_num', JSON.stringify(vvm.machine_num));
-	localStorage.setItem('id', vvm.id);
+	try {
+		localStorage.setItem('machine_num', JSON.stringify(vvm.machine_num));
+		localStorage.setItem('id', vvm.id);
 
-	VVM.set(vvm);
+		VVM.set(vvm);
+	} catch (e) {
+		console.log('some error occured...');
+	}
 }
 
 async function ValidateMachineNumber(pb: PocketBase, num: number): Promise<number> {
-	const nextNumberInList = (await pb.collection('vvm').getFullList({requestKey: null})).length + 1;
+	const nextNumberInList =
+		(await pb.collection('vvm').getFullList({ requestKey: null })).length + 1;
 	if (num === 0) return nextNumberInList;
 
 	try {
