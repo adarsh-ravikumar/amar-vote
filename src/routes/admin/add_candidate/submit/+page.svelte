@@ -82,7 +82,10 @@
 			@media only screen and (max-width: 600px) {
 				flex-direction: column;
 				gap: 0.5rem;
-				align-items: center;
+				align-items: flex-start;
+				p {
+					text-overflow: ellipsis;
+				}
 			}
 			.icon {
 				p {

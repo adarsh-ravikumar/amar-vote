@@ -67,9 +67,9 @@ export async function ConnectVVM(pb: PocketBase): Promise<void> {
 			voter: null,
 			session_active: false
 		});
+	} finally {
+		StoreSessionInfo(vvm!);
 	}
-
-	StoreSessionInfo(vvm!);
 }
 
 export async function WatchForVoterInfo(pb: PocketBase): Promise<void> {
