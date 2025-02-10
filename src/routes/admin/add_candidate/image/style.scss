@@ -18,6 +18,7 @@
 .wrapper {
     display: flex;
     flex-direction: column;
+	align-items: center;
 
 	.page__title {
 		font-size: 1.2rem;
@@ -28,6 +29,10 @@
 	.video {
 		margin-block: 1rem;
 		width: 30vw;
+		@media only screen and (max-width: 600px) {
+			width: 90vw;
+		}
+
 		video {
 			border-radius: 0.3rem;
 			box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
@@ -133,6 +138,12 @@ canvas {
 			justify-content: space-between;
 			align-items: center;
 			margin-top: 1rem;
+
+			&.modal__button {
+				@media only screen and (max-width: 600px) {
+					padding-inline: 1rem;
+				}
+			}
 		}
 
 		.modal__button {
