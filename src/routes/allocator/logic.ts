@@ -54,9 +54,9 @@ export async function GetVVM(pb: PocketBase): Promise<void> {
 			filter: 'session_active = false',
 			requestKey: null
 		})
-	).items[0];
+	).items[0];``
 
-	if (!freeMachine.session_active) {
+	if (freeMachine && !freeMachine.session_active) {
 		Machine.set({ id: freeMachine!.id, machine_num: freeMachine!.machine_num });
 	} else {
 		await WaitForVVM(pb);
