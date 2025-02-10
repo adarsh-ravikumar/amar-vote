@@ -42,7 +42,7 @@
 			rotate: 1turn;
 
 			transition: rotate 1s ease;
-			
+
 			&.refreshing {
 				animation: spin 1s ease infinite;
 				transition: rotate 1s ease;
@@ -120,7 +120,7 @@
 					position: relative;
 				}
 
-				.modal {
+				.table__modal {
 					background: $latte-base;
 
 					&.fly-out {
