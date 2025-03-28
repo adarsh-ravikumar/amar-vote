@@ -14,7 +14,7 @@
 
 	const videoConstraints = {
 		audio: false,
-		video: { width: 500, height: 500 }
+		video: { width: 500, height: 500, facingMode: 'environment' }
 	};
 
 	onMount(async () => {

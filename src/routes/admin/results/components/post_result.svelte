@@ -5,19 +5,28 @@
 	import { PB } from '$lib/state';
 	import { ConnectPocketBase, PB_URL } from '$lib/api';
 
+	let loadingPosts: boolean = $state(false);
+
 	onMount(async () => {
 		ConnectPocketBase(PB_URL);
+		loadingPosts = true;
 		$Posts = await GetPosts($PB);
+		loadingPosts = false;
 		$PB.collection('candidates').subscribe('*', async () => {
 			$Posts = await GetPosts($PB);
 		});
 	});
 </script>
 
-{#if !$Posts.length}
+{#if loadingPosts}
 	<div class="loading">
 		<p class="">Loading Data...</p>
 		<div class="loader"></div>
+	</div>
+{/if}
+{#if !loadingPosts && $Posts!.length === 0}
+	<div class="loading">
+		<p>No Data Found</p>
 	</div>
 {/if}
 <div class="post_results">

@@ -22,14 +22,21 @@ async function GetLastSessionInfo(): Promise<SessionInfo> {
 }
 
 function StoreSessionInfo(vvm: RecordModel): void {
-	localStorage.setItem('machine_num', JSON.stringify(vvm.machine_num));
-	localStorage.setItem('id', vvm.id);
+	try {
+		console.log(`VVM (store): ${vvm}`);
+		localStorage.setItem('machine_num', JSON.stringify(vvm.machine_num));
+		localStorage.setItem('id', vvm.id);
 
-	VVM.set(vvm);
+		VVM.set(vvm);
+	} catch (e) {
+		console.log('some error occured...');
+	}
 }
 
 async function ValidateMachineNumber(pb: PocketBase, num: number): Promise<number> {
-	const nextNumberInList = (await pb.collection('vvm').getFullList({requestKey: null})).length + 1;
+	const nextNumberInList =
+		(await pb.collection('vvm').getFullList({ requestKey: null })).length + 1;
+	console.log(`Next Num: ${nextNumberInList}`);
 	if (num === 0) return nextNumberInList;
 
 	try {
@@ -39,10 +46,13 @@ async function ValidateMachineNumber(pb: PocketBase, num: number): Promise<numbe
 			filter: `machine_num = ${num}`
 		});
 
+		console.log(`Machine With Num: ${machineWithNum}`);
+
 		return nextNumberInList;
 	} catch {
 		// in case of a 404 error (which is the only error possible in this case) we can return the previous
 		// number itself as it is not being used by other systems
+		console.log(`Num: ${num}`);
 		return num;
 	}
 }
@@ -51,12 +61,20 @@ export async function ConnectVVM(pb: PocketBase): Promise<void> {
 	let { lastSessionNum, lastSessionID } = await GetLastSessionInfo();
 	let num = await ValidateMachineNumber(pb, lastSessionNum);
 	let vvm = undefined;
+	console.log(`Num (connect): ${num}`);
+	console.log(`VVM (connect): ${vvm}`);
+	console.log(`Last session (connect): ${lastSessionID}`);
 
-	try {
-		if (lastSessionID) {
+	if (lastSessionID) {
+		try {
 			vvm = await pb.collection('vvm').getOne(lastSessionID!);
+			console.log(`VVM Fetched (connect): ${vvm}`);
+		} catch (e) {
+			console.log(`VVM New (connect): ${vvm}`);
 		}
-	} catch {
+	}
+
+	if (!vvm) {
 		vvm = await pb.collection('vvm').create({
 			machine_num: num,
 			voter: null,

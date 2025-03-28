@@ -10,11 +10,15 @@
 
 	onMount(() => {
 		ConnectPocketBase(PB_URL);
+		if (localStorage.getItem('logedin') == 'true') {
+			$LoggedIn = true;
+		}
 	});
 
 	function Password() {
 		if (pwd === 'vote@chinmaya') {
 			$LoggedIn = true;
+			localStorage.setItem('logedin', 'true');
 		} else {
 			wrongPass = true;
 		}
@@ -43,7 +47,13 @@
 	.login {
 		display: flex;
 		flex-direction: column;
-		width: clamp(150px, 80vw, 500px);
+		
+    width: 30%;
+
+		@media only screen and (max-width: 800px) {
+			width: 90%;
+		}
+    
 		position: absolute;
 		left: 50%;
 		top: 50%;

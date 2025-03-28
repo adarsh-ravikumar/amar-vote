@@ -1,21 +1,50 @@
-import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
+import PocketBase, { type RecordModel } from 'pocketbase';
+import { Deleting } from './state';
 
-export async function GeneratePDF() {
-	const pdfDoc = await PDFDocument.create();
-	const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman);
-	const timesRomanBold = await pdfDoc.embedFont(StandardFonts.TimesRomanBold);
+export async function ResetData(pb: PocketBase, resetPosts: boolean, resetVote: boolean) {
+	Deleting.set(true);
 
-	const page = pdfDoc.addPage();
-	const { width, height } = page.getSize();
-	const fontSize = 30;
-	page.drawText('Results And Analysis', {
-		x: width / 2,
-		y: height - 4 * fontSize,
-		size: fontSize,
-		font: timesRomanBold,
-        
-		color: rgb(0, 0, 0)
-	});
+	(await pb.collection('vvm').getFullList({ requestKey: null })).forEach(
+		async (rec: RecordModel) => {
+			await pb.collection('vvm').delete(rec.id);
+		}
+	);
 
-	const pdfBytes = await pdfDoc.save();
+	if (resetPosts) {
+		(await pb.collection('candidates').getFullList({ requestKey: null })).forEach(
+			async (rec: RecordModel) => {
+				await pb.collection('candidates').delete(rec.id);
+			}
+		);
+
+		(await pb.collection('posts').getFullList({ requestKey: null })).forEach(
+			async (rec: RecordModel) => {
+				await pb.collection('posts').delete(rec.id);
+			}
+		);
+
+		(await pb.collection('icons').getFullList({ requestKey: null })).forEach(
+			async (rec: RecordModel) => {
+				await pb.collection('icons').delete(rec.id);
+			}
+		);
+	}
+
+	if (resetVote) {
+		(await pb.collection('votes').getFullList({ requestKey: null })).forEach(
+			async (rec: RecordModel) => {
+				await pb.collection('votes').delete(rec.id);
+			}
+		);
+
+		(await pb.collection('candidates').getFullList({ requestKey: null })).forEach(
+			async (rec: RecordModel) => {
+				await pb.collection('candidates').update(rec.id, {
+					votes: 0
+				});
+			}
+		);
+	}
+
+	Deleting.set(false);
 }
