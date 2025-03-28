@@ -43,7 +43,7 @@
 	.login {
 		display: flex;
 		flex-direction: column;
-		width: 30%;
+		width: clamp(150px, 80vw, 500px);
 		position: absolute;
 		left: 50%;
 		top: 50%;

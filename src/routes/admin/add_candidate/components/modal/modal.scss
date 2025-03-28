@@ -1,7 +1,7 @@
 @use '../../../../../styles/vars' as *;
 
 .modal__wrapper {
-	position: absolute;
+	position: fixed;
 	width: 100vw;
 	min-height: 100svh;
 	top: 0;
@@ -55,6 +55,7 @@
 			border-radius: 0.3rem;
 			box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 			margin: 0.5rem;
+			text-overflow: ellipsis;
 		}
 
 		.modal__buttons {

@@ -84,6 +84,12 @@
 					font-weight: 600;
 				}
 			}
+
+			.data {
+				p {
+					text-overflow: ellipsis;
+				}
+			}
 		}
 	}
 </style>
