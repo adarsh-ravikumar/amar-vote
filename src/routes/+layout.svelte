@@ -47,12 +47,13 @@
 	.login {
 		display: flex;
 		flex-direction: column;
-		width: 30%;
+		
+    width: 30%;
 
 		@media only screen and (max-width: 800px) {
 			width: 90%;
 		}
-
+    
 		position: absolute;
 		left: 50%;
 		top: 50%;

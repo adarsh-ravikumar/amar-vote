@@ -20,6 +20,7 @@
 	onMount(async () => {
 		ConnectPocketBase(PB_URL);
 		requestedPosts = true;
+
 		try {
 			$Icon = await FetchIcon($PB);
 			noIcon = false;
