@@ -18,7 +18,7 @@
 		width: 100svw;
 		text-align: center;
 		gap: 2rem;
-		position: absolute;
+		position: fixed;
 		top: 0;
 		left: 0;
 		background: rgba(0, 0, 0, 0.3);
