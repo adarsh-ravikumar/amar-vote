@@ -136,6 +136,8 @@ canvas {
 		.modal__buttons {
 			display: flex;
 			justify-content: space-between;
+			flex-direction: column;
+			width: 100%;
 			align-items: center;
 			margin-top: 1rem;
 			gap: 0.5rem;
@@ -145,6 +147,7 @@ canvas {
 		.modal__button {
 			margin-inline: auto;
 			padding-inline: 1rem;
+			width: 100%;
 
 			&.modal__button--error {
 				background: $latte-red;

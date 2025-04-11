@@ -52,7 +52,7 @@
 						class="modal__button modal__button--error"
 						onclick={() => {
 							showModal = !showModal;
-						}}>Capture Another</button
+						}}><span class="material-icons"> photo_camera </span> Capture Another</button
 					>
 					<button
 						class="modal__button"
@@ -60,7 +60,7 @@
 							showModal = !showModal;
 							$CandidateData!.image = image;
 							goto('/admin/add_candidate/submit');
-						}}>Continue</button
+						}}>Continue <span class="material-icons"> arrow_forward_ios </span></button
 					>
 				</div>
 			</div>
