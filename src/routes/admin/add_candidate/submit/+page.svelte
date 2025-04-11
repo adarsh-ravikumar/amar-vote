@@ -10,7 +10,7 @@
 
 	let registered: boolean = $state(false);
 	let requestedRegister: boolean = $state(false);
-	
+
 	onMount(async () => {
 		$CandidateData!.icon = $Icon!.id;
 	});
@@ -79,6 +79,14 @@
 		.imgs {
 			display: flex;
 			gap: 2rem;
+			@media only screen and (max-width: 600px) {
+				flex-direction: column;
+				gap: 0.5rem;
+				align-items: flex-start;
+				p {
+					text-overflow: ellipsis;
+				}
+			}
 			.icon {
 				p {
 					font-weight: 600;

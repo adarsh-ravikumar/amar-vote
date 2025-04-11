@@ -122,6 +122,13 @@
 							}}>Proceed To Vote</button
 						>
 					{/if}
+				{:else}
+					<button
+						class="reg"
+						onclick={() => {
+							showModal = false;
+						}}>Continue</button
+					>
 				{/if}
 			</div>
 		</div>

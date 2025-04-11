@@ -16,7 +16,8 @@ export async function CheckIfVoted(pb: PocketBase, data: VoterData): Promise<boo
 		const existingVoter = await pb
 			.collection('votes')
 			.getFirstListItem(
-				`name = "${data.name}" && class = "${data.class}" && section= "${data.section}"`
+				`name = "${data.name}" && class = "${data.class}" && section= "${data.section}"`,
+				{ requestKey: null }
 			);
 
 		return existingVoter !== undefined;
@@ -36,7 +37,7 @@ export async function CreateVoter(pb: PocketBase, data: VoterData): Promise<Vote
 export async function WaitForVVM(pb: PocketBase): Promise<void> {
 	let freeMachine: RecordModel | undefined = undefined;
 
-	Machine.set({ id: undefined, machine_num: undefined});
+	Machine.set({ id: undefined, machine_num: undefined });
 	await pb.collection('vvm').subscribe('*', (e) => {
 		if (e.action == 'update' && e.record.session_active == false) {
 			freeMachine = e.record;
@@ -51,11 +52,13 @@ export async function GetVVM(pb: PocketBase): Promise<void> {
 
 	freeMachine = (
 		await pb.collection('vvm').getList(1, 50, {
-			fitler: 'session_active = false'
+			filter: 'session_active = false',
+			requestKey: null
 		})
 	).items[0];
+	``;
 
-	if (!freeMachine.session_active) {
+	if (freeMachine && !freeMachine.session_active) {
 		Machine.set({ id: freeMachine!.id, machine_num: freeMachine!.machine_num });
 	} else {
 		await WaitForVVM(pb);

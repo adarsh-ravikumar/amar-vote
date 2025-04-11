@@ -139,7 +139,7 @@
 									}}><span class="material-icons-outlined delete-icon">delete</span></button
 								>
 								{#if deleting == row[0]}
-									<div class="modal {deleteModalFlyOut ? 'fly-out' : ''}">
+									<div class="table__modal {deleteModalFlyOut ? 'fly-out' : ''}">
 										<div class="container">
 											<div class="title_wrapper">
 												<h4>Are you sure?</h4>
