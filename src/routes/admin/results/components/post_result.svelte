@@ -61,7 +61,8 @@
 	.post_results {
 		width: 100%;
 		overflow: scroll;
-		min-height: 100%;
+		min-height: fit-content;
+		height: 100%;
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		margin-top: 1rem;
