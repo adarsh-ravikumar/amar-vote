@@ -6,9 +6,54 @@
 	place-content: center;
 }
 
+.search {
+	position: relative;
+	height: 3rem;
+
+	input, .results {
+		position: absolute;
+		left: 0;
+		width: 100%;
+	}
+	
+	input {
+		top: 0;
+		z-index: 5;
+	}
+
+	.results {
+		z-index: 100;
+		top: 100%;
+		margin-top: 10px;
+		background: white;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		height: fit-content;
+		outline: 1px solid $latte-overlay0;
+		border-radius: 0.2rem;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		max-height: 15rem;
+		overflow-y: scroll ;
+		
+		.res {
+			padding-inline: 0.5rem;
+			padding-block: 0.1rem;
+			&:hover {
+				background: $latte-sky;
+				cursor: pointer;
+				color: white;
+			}
+
+		}
+
+	}
+
+	
+}
 
 .modal {
-	z-index: 5;
+	z-index: 15;
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -117,7 +162,7 @@ button {
 	margin-inline: auto;
 
 	img {
-        width: 100%;
+		width: 100%;
 		object-fit: scale-down;
 	}
 

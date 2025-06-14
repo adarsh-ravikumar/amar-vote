@@ -1,12 +1,6 @@
 import PocketBase from 'pocketbase';
 import { NumCandidates, NumPosts, NumVotes, NumVVMS } from './state';
-/*
-    - number of posts
-    - number of candidates
-    - number of votes casted
-    - number of vvms busy
-    - time since election started
-*/
+
 
 export async function GetStaticData(pb: PocketBase) {
 	NumPosts.set((await pb.collection('posts').getFullList()).length);

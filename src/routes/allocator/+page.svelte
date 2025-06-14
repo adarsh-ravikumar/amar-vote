@@ -4,6 +4,8 @@
 	import { Machine } from './state';
 	import { PB } from '$lib/state';
 	import Loader from '../../components/loader.svelte';
+	import { onMount } from 'svelte';
+	import Fuse from 'fuse.js';
 
 	let name: string = $state('');
 	let _class: string = $state('');
@@ -15,10 +17,16 @@
 	let showModal: boolean = $state(false);
 	let requestedMachine: boolean = $state(false);
 
-	const HOUSE_RIG = 'Rig';
-	const HOUSE_SAMA = 'Sama';
-	const HOUSE_YAJUR = 'Yajur';
-	const HOUSE_ATHARVANA = 'Atharvana';
+	let searchResults: VoterData[] = $state([]);
+	let voterData: VoterData[] = $state([]);
+	let fuse: Fuse<VoterData>;
+
+	let nameInput: HTMLInputElement | null = $state(null);
+
+	const HOUSE_RIG = 'RIG';
+	const HOUSE_SAMA = 'SAMA';
+	const HOUSE_YAJUR = 'YAJUR';
+	const HOUSE_ATHARVANA = 'ATHARVANA';
 
 	async function RegisterVoter() {
 		if (!name || !_class || !sec || !house) {
@@ -68,6 +76,37 @@
 		// clear
 		name = '';
 		house = '';
+	}
+
+	function UseSearchResult(result: VoterData) {
+		name = result.name;
+		_class = result.class;
+		sec = result.section;
+		house = result.house;
+		searchResults = [];
+	}
+
+	onMount(async () => {
+		// load data;
+		requestedMachine = true;
+		voterData = await $PB.collection('voter_data').getFullList();
+		requestedMachine = false;
+		fuse = new Fuse<VoterData>(voterData, {
+			keys: ['name'],
+			threshold: 0.3
+		});
+
+		// qol feature
+		window.addEventListener('keypress', (e) => {
+			if (e.key == 'Enter' && document.activeElement == nameInput && searchResults.length > 0) {
+				UseSearchResult(searchResults[0]);
+				nameInput?.blur();
+			}
+		});
+	});
+
+	async function Search() {
+		searchResults = fuse.search(name).map((result) => result.item);
 	}
 </script>
 
@@ -136,12 +175,35 @@
 
 	<div class="form">
 		<img src="/amar_school_branded.png" alt="amar_logo" />
-		<!-- <div class="logo">
-			<p class="credits">Made with ❤️ by <span>Adarsh Ravikumar</span> - Batch of 2025</p>
-		</div> -->
 		<div class="container">
 			<label for="name">Name</label>
-			<input type="text" name="name" bind:value={name} />
+			<div class="search">
+				<input
+					type="text"
+					name="name"
+					bind:value={name}
+					bind:this={nameInput}
+					autocomplete="off"
+					oninput={Search}
+				/>
+				{#if searchResults.length > 0}
+					<div class="results">
+						{#each searchResults as result, i}
+							<!-- svelte-ignore a11y_click_events_have_key_events -->
+							<!-- svelte-ignore a11y_no_static_element_interactions -->
+							<div
+								class="res"
+								onclick={() => {
+									UseSearchResult(result);
+								}}
+							>
+								{result.name} - {result.class}
+								{result.section}
+							</div>
+						{/each}
+					</div>
+				{/if}
+			</div>
 		</div>
 
 		<div class="row">
@@ -152,7 +214,7 @@
 
 			<div class="container">
 				<label for="sec">Section</label>
-				<select name="section" bind:value={sec}>
+				<select class="sec-sel" name="section" bind:value={sec}>
 					<option value="A">A</option>
 					<option value="B">B</option>
 					<option value="C">C</option>

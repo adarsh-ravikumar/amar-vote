@@ -1,0 +1,89 @@
+@use '../../../styles/vars' as *;
+
+.upload {
+	padding: 2rem 4rem;
+	outline: 2px dashed $latte-teal;
+	border-radius: 0.3rem;
+	margin-bottom: 1rem;
+
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 2rem;
+	background: transparent;
+
+	&.drag {
+		background: #17929918;
+	}
+
+	p {
+		font-size: 1rem;
+		font-weight: 600;
+		line-height: 0.2;
+		color: $latte-teal;
+	}
+
+	.or {
+		font-size: 0.8rem;
+		font-weight: 400;
+	}
+
+	.hide {
+		display: none;
+	}
+}
+
+.summary {
+	width: 100%;
+	background: $latte-subtext1;
+	margin-block: 1rem;
+
+	padding-block: 0.7rem;
+	border-radius: 0.3rem;
+
+	text-align: center;
+	p {
+		color: $latte-base;
+		font-size: 1.1rem;
+		font-weight: 500;
+	}
+}
+
+.instructions {
+	overflow: scroll;
+
+	button {
+		background: $latte-teal;
+	}
+
+	.title {
+		font-size: 1.3rem;
+		font-weight: bold;
+		text-align: center;
+	}
+
+	.s1 {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+	}
+
+	p {
+		font-size: 1.2rem;
+		margin-block: 0.5rem;
+	}
+
+	.note {
+		background: $latte-crust;
+		border-radius: 0.3rem;
+		padding-inline: 2rem;
+		padding-block: 0.5rem;
+		margin-right: 1rem;
+		ul {
+			li {
+				margin-left: 1rem;
+				font-size: 1.2rem;
+			}
+		}
+	}
+}

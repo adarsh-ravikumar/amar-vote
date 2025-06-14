@@ -1,7 +1,13 @@
 import PocketBase, { type RecordModel } from 'pocketbase';
 import { Deleting } from './state';
 
-export async function ResetData(pb: PocketBase, resetPosts: boolean, resetVote: boolean) {
+export async function ResetData(
+	pb: PocketBase,
+	resetPosts: boolean,
+	resetCampaignIcons: boolean,
+	resetCandidates: boolean,
+	resetVote: boolean
+) {
 	Deleting.set(true);
 
 	(await pb.collection('vvm').getFullList({ requestKey: null })).forEach(
@@ -10,22 +16,26 @@ export async function ResetData(pb: PocketBase, resetPosts: boolean, resetVote: 
 		}
 	);
 
-	if (resetPosts) {
+	if (resetCandidates) {
 		(await pb.collection('candidates').getFullList({ requestKey: null })).forEach(
 			async (rec: RecordModel) => {
 				await pb.collection('candidates').delete(rec.id);
 			}
 		);
+	}
 
-		(await pb.collection('posts').getFullList({ requestKey: null })).forEach(
-			async (rec: RecordModel) => {
-				await pb.collection('posts').delete(rec.id);
-			}
-		);
-
+	if (resetCampaignIcons) {
 		(await pb.collection('icons').getFullList({ requestKey: null })).forEach(
 			async (rec: RecordModel) => {
 				await pb.collection('icons').delete(rec.id);
+			}
+		);
+	}
+
+	if (resetPosts) {
+		(await pb.collection('posts').getFullList({ requestKey: null })).forEach(
+			async (rec: RecordModel) => {
+				await pb.collection('posts').delete(rec.id);
 			}
 		);
 	}

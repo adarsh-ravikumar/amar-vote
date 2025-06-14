@@ -23,6 +23,8 @@
 	let requestedReset: boolean = $state(false);
 	let resetVote: boolean = $state(false);
 	let resetPost: boolean = $state(false);
+	let resetCandidates: boolean = $state(false);
+	let resetCampaingIcons: boolean = $state(false);
 </script>
 
 <svelte:head>
@@ -46,7 +48,15 @@
 			</div>
 			<div class="container">
 				<input type="checkbox" bind:checked={resetPost} />
-				<label for="">Posts, Candidates, Campaign Icons</label>
+				<label for="">Posts</label>
+			</div>
+			<div class="container">
+				<input type="checkbox" bind:checked={resetCandidates} />
+				<label for="">Candidates</label>
+			</div>
+			<div class="container">
+				<input type="checkbox" bind:checked={resetCampaingIcons} />
+				<label for="">Campaign Icons</label>
 			</div>
 
 			<button
@@ -54,7 +64,7 @@
 				onclick={async () => {
 					resetModal = false;
 					requestedReset = true;
-					await ResetData($PB, resetPost, resetVote);
+					await ResetData($PB, resetPost, resetCampaingIcons, resetCandidates, resetVote);
 					requestedReset = false;
 				}}
 			>

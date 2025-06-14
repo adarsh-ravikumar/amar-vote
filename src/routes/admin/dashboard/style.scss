@@ -2,17 +2,17 @@
 
 .info {
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-template-rows: repeat(2, 1fr);
+	grid-template-columns: repeat(2, 50%);
 	gap: 1rem;
-	width: 100%;
+	width: 99%;
 	height: 100%;
+	// overflow: scroll;
 
 	.count {
 		width: 100%;
 		background: $latte-crust;
-		aspect-ratio: 3/2;
         border-radius: 0.3rem;
+		position: relative;
 
 		.count__title {
 			text-align: center;
@@ -25,6 +25,16 @@
 			color: $latte-text;
 			opacity: 0.5;
 			margin-top: 0.5rem;
+
+			&.column {
+				flex-direction: column;
+
+				span {
+					display: flex;
+					align-items: center;
+					gap: 0.5rem;
+				}
+			}
 		}
 
 		.count__num {
@@ -32,6 +42,10 @@
 			font-weight: 600;
 			color: $latte-teal;
 			text-align: center;
+			position: absolute;
+			top:50%; 
+			left: 50%;
+			transform: translate(-50%, -50%);
 		}
 	}
 }
