@@ -57,6 +57,7 @@
 			margin: 0.5rem;
 			overflow: hidden;
 
+			&,
 			p {
 				text-overflow: ellipsis;
 			}

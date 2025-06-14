@@ -52,7 +52,9 @@
 						class="modal__button modal__button--error"
 						onclick={() => {
 							showModal = !showModal;
-						}}> <span class="material-icons-outlined">photo_camera</span> Capture Another</button
+
+						}}><span class="material-icons"> photo_camera </span> Capture Another</button
+
 					>
 					<button
 						class="modal__button"
