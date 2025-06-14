@@ -31,9 +31,12 @@
 		"vite": "^5.4.11"
 	},
 	"dependencies": {
+		"@types/papaparse": "^5.3.16",
 		"amar-vote": ".",
 		"concurrently": "^9.1.2",
+		"fuse.js": "^7.1.0",
 		"nodemailer": "^6.10.0",
+		"papaparse": "^5.5.3",
 		"pdf-lib": "^1.17.1",
 		"pocketbase": "^0.25.0",
 		"sass-embedded": "^1.83.4"
